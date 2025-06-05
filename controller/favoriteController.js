@@ -1,5 +1,5 @@
 // controllers/favoriteController.js
-const User = require('../models/User');
+const User = require('../models/user');
 
 exports.addFavorite = async (req, res) => {
   const userId = req.user.id;
