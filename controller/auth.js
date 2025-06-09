@@ -9,62 +9,41 @@ const signtoken = id =>  {
 }) };
 
 
-exports.signup = async(req,res,next) =>{
-    const {name,email,password}  = req.body;
- try { 
+exports.signup = async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    // Create user
     const newUser = await User.create({
-        name:name, 
-        email:email,
-        password:password,
+      name,
+      email,
+      password
     });
-    const token = signtoken(newUser._id)
-     console.log(newUser)
+
+    const token = signtoken(newUser._id);
+    console.log("New User Registered:", newUser);
+
+    // Success Response
     res.status(201).json({
-        token,
-        status:'success',
-        data:{
-            newUser
+      status: 'success',
+      token,
+      data: {
+        user: {
+          id: newUser._id,
+          name: newUser.name,
+          email: newUser.email
         }
-    })
- } catch (error) {
-    return res.json(
-        {
-             status:"NOt vaild email or password",
-             data:error
-        }
-    )
- } 
-}
-
-// exports.login = async (req, res) => {
-//   const { email, password } = req.body;
-
-//   try {
-//     // 1. Check user exists
-//     const user = await User.findOne({ email });
-//     console.log(user);
-//     if (!user || user.password !== password) {
-//       return res.status(401).json({ message: 'Invalid email or password' });
-//     }
-
-//     // 2. Sign token and return
-//     const token = signToken(user._id);
-
-//     res.status(200).json({
-//       status: 'success',
-//       token,
-//       user: {
-//         id: user._id,
-//         name: user.fullName,
-//         email: user.email,
-//       },
-//     });
-//   } catch (error) {
-//     console.error('Login error:', error);
-//     res.status(500).json({ message: 'Server error during login' });
-//   }
-// };
-
+      }
+    });
+  } catch (error) {
+    console.error("Signup Error:", error.message);
+    res.status(400).json({
+      status: "fail",
+      message: "Invalid input or duplicate email",
+      error: error.message
+    });
+  }
+};
 
 
 exports.login = async(req,res,next)=>{
