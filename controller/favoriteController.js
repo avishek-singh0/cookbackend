@@ -1,4 +1,4 @@
-// controllers/favoriteController.js
+
 const User = require('../models/user');
 
 exports.addFavorite = async (req, res) => {
@@ -41,7 +41,7 @@ exports.removeFavorite = async (req, res) => {
 
 exports.getFavorites = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).populate('favorites');
+    const user = await User.findById(req.user.id).populate('favorites','name');
     res.status(200).json(user.favorites);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching favorites' });
