@@ -10,7 +10,7 @@ router.get('/all',  recipeController.getAllRecipes); // Get all recipes
 // routes/recipeRoutes.js
 router.get('/my-recipes', auth.authenticateToken, recipeController.getMyRecipes);
 
-
+router.get('/:id',  auth.authenticateToken,recipeController.getRecipeById);
  // Get a recipe by ID
 router.delete('/delete/:id', auth.authenticateToken, recipeController.deleteRecipe); // Delete a recipe by ID 
 module.exports = router;

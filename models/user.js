@@ -19,18 +19,7 @@ favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }]
 
 
 
-// userschema.pre('save',async function(next){
 
-//     //Only run this fun passwor is modifed
-//     if(!this.isModified('password')) return next();  //call nextt middleware ,pre-> in between the doc
-
-// //Hash the passord with cost of 12
-//     this.password = await bcrypt.hash(this.password,12)
-// //delet pasdconf 
-//     this.passwordConfirm = undefined;
-//     next();
-
-// })
 
 userschema.methods.correctPassword =  async function(candidatePassword,userPassword) {
     return await bcrypt.compare(candidatePassword,userPassword);
