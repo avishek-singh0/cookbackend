@@ -8,7 +8,7 @@ const { createRecipeSchema } = require('../dto/recipe.dto');
 
 
 router.post('/create',auth.authenticateToken,validateDto(createRecipeSchema),  recipeController.createRecipe);// Create a new recipe
-router.get('/all', auth.authenticateToken, recipeController.getAllRecipes); // Get all recipes
+router.get('/all', recipeController.getAllRecipes); // Get all recipes
 
 
 // routes/recipeRoutes.js
