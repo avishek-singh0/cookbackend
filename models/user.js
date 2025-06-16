@@ -20,12 +20,9 @@ favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }]
 
 
 
-
 userschema.methods.correctPassword =  async function(candidatePassword,userPassword) {
     return await bcrypt.compare(candidatePassword,userPassword);
 }
-
-
 
 
 const User = mongoose.models.User || mongoose.model('User', userschema);

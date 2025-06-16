@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router();
 const authController = require('./../controller/auth')
-
+const { createUserSchema, loginUserSchema } = require('../dto/user.dto');
+const validateDto = require('../middleware/validateDto');
 
 
 //auth.js
-router.post('/sign', authController.signup);
-router.post('/login', authController.login);
+router.post('/sign',validateDto(createUserSchema), authController.signup);
+router.post('/login',validateDto(loginUserSchema), authController.login);
 
 
 

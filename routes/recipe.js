@@ -2,9 +2,13 @@ const express = require('express')
 const router = express.Router();
 const recipeController = require('./../controller/recipe')
 const auth = require('../middleware/auth');
+const validateDto = require('../middleware/validateDto');
+const { createRecipeSchema } = require('../dto/recipe.dto');        
 
-router.post('/create',auth.authenticateToken,  recipeController.createRecipe);// Create a new recipe
-router.get('/all',  recipeController.getAllRecipes); // Get all recipes
+
+
+router.post('/create',auth.authenticateToken,validateDto(createRecipeSchema),  recipeController.createRecipe);// Create a new recipe
+router.get('/all', auth.authenticateToken, recipeController.getAllRecipes); // Get all recipes
 
 
 // routes/recipeRoutes.js
