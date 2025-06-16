@@ -18,6 +18,14 @@ favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }]
 },{timestamps:true});
 
 
+userschema.pre("save", async function (next) {
+  // Only run if password is modified
+  if (!this.isModified("password")) return next();
+
+  // Hash the password with bcrypt
+  this.password = await bcrypt.hash(this.password, 12);
+  next();
+});
 
 
 userschema.methods.correctPassword =  async function(candidatePassword,userPassword) {
